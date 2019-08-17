@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <div id="app">
+    
+        <div class="main">
+
+            <h1 class="heading-primary">The Monster Slayer</h1>
+            
+            <section class="section-status">
+                <div class="status clearfix">
+                    
+                    <div class="status--hero col-1-of-2">
+                        <h2 class="status__heading">YOU</h2>
+    
+                        <div class="status__health-bar">
+                            <div class="health-bar__background" :style="{width: playerHealth + '%'}">{{ playerHealth }}%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="status--monster col-1-of-2">
+                        <h2 class="status__heading">MONSTER</h2>
+    
+                        <div class="status__health-bar">
+                            <div class="health-bar__background" :style="{width: monsterHealth + '%'}">{{ monsterHealth }}%</div>
+                        </div>
+                    </div>    
+
+                </div>
+            </section>  
+            
+            <section class="section-start" v-if="!gameIsRunning">   
+                <div class="game-start">
+                    <a @click="startGame" class="btn btn-start" href="#">Start New Game</a>
+                </div>
+            </section>
+                
+            <section class="section-actions" v-else>   
+                <div class="game-actions">
+                    <h3 class="heading-secondary">Choose an action:</h3>
+
+                    <a @click="attack" class="btn btn-attack" href="#">Attack</a>
+                    <a @click="specialAttack" class="btn btn-special-attack" href="#">Special Attack</a>
+                    <a @click="heal" class="btn btn-heal" href="#">Heal</a>
+                    <a @click="giveUp" class="btn btn-give-up" href="#">Give Up</a>
+                </div>
+            </section>
+                
+                
+            <div class="battle-summary"  v-if="turns.length > 0">
+                <h3 class="heading-secondary">Battle summary:</h3>
+            
+                <ul class="log">
+                    <li class="log-item" :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}" v-for="turn in turns">
+                        {{ turn.text }}
+                    </li>
+                </ul>
+            </div> 
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
